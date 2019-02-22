@@ -1,5 +1,6 @@
 package com.sparkTutorial.rdd.airports
 
+import org.apache.spark.rdd.RDD
 import com.sparkTutorial.commons.Utils
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -13,7 +14,7 @@ object AirportsInUsaSolution {
     val airports = sc.textFile("in/airports.text")
     val airportsInUSA = airports.filter(line => line.split(Utils.COMMA_DELIMITER)(3) == "\"United States\"")
 
-    val airportsNameAndCityNames = airportsInUSA.map(line => {
+    val airportsNameAndCityNames: RDD[String] = airportsInUSA.map(line => {
       val splits = line.split(Utils.COMMA_DELIMITER)
       splits(1) + ", " + splits(2)
     })
